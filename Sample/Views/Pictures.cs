@@ -189,10 +189,10 @@ namespace Sample.Views
         {
             RedditPic currentItem = (RedditPic)_list.SelectedItem;
             String title = currentItem.Title;
-            String thumb = currentItem.Thumb;
+            String image = currentItem.Img;
             String author = currentItem.Author;
 
-            ViewPicPage v = new ViewPicPage(title, thumb, author);
+            ViewPicPage v = new ViewPicPage(title, image, author);
             Navigation.PushAsync(v);
         }
     }

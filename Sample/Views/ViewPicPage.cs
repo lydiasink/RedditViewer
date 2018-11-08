@@ -5,8 +5,8 @@ namespace Sample.Views
 {
     public class ViewPicPage : ContentPage
     {
-        public String itemTitle { get; set; }
-        public String Thumb { get; set; }
+        public String ItemTitle { get; set; }
+        public String Img { get; set; }
         public String Author { get; set; }
 
         public ViewPicPage(String itemTitle, String thumb, String author)
@@ -16,7 +16,7 @@ namespace Sample.Views
             itemTitleLabel.Text = "Title: " + itemTitle;
             itemTitleLabel.FontSize = 24;
             itemTitleLabel.HorizontalTextAlignment = TextAlignment.Center;
-            Image image = new Image { Source = thumb};
+            Image image = new Image { Source = Img};
 
             image.VerticalOptions = LayoutOptions.Fill;
             Label authorLabel = new Label();

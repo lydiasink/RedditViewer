@@ -8,11 +8,12 @@ using Newtonsoft.Json.Linq;
 public class RedditPic
 {
     public string Title { get; set; }
-    public string Thumb { get; set; }
+    public string Thumb { get; set; } //Small image for view in list
     public int comCount { get; set; }
     public int crossPosts { get; set; }
     public string Author { get; set; }
     public int Score { get; set; }
+    public string Img { get; set; } //Large image for specific item view
     //public DateTime Created { get; set; } 
 
 }
@@ -65,6 +66,7 @@ public static class GetData
             var numComs = System.Convert.ToInt32(it_data["num_comments"].ToString());
             var numCPs = System.Convert.ToInt32(it_data["num_crossposts"].ToString());
             var author = it_data["author"].ToString();
+            var image = it_data["url"].ToString();
             //var createdUTC = System.Convert.ToDateTime(it_data["created_utc"].ToString());
             //TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
             //DateTime created = TimeZoneInfo.ConvertTimeFromUtc(createdUTC, est);
@@ -73,13 +75,15 @@ public static class GetData
             //convert the UTC to datetime
 
             // Create an object 
-            a.Add(new RedditPic { 
-                Title = title, 
-                Thumb = thumb , 
+            a.Add(new RedditPic
+            {
+                Title = title,
+                Thumb = thumb,
                 comCount = numComs,
                 crossPosts = numCPs,
                 Author = author,
-                Score = score
+                Score = score,
+                Img = image 
                //Created = created
             });
         }
