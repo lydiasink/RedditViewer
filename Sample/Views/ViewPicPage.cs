@@ -5,31 +5,32 @@ namespace Sample.Views
 {
     public class ViewPicPage : ContentPage
     {
-        public String ItemTitle { get; set; }
-        public String Img { get; set; }
-        public String Author { get; set; }
+        public Label ItemTitle { get; set; }
+        public Image Img { get; set; }
+        public Label AuthorLabel { get; set; }
 
-        public ViewPicPage(String itemTitle, String thumb, String author)
+        public ViewPicPage(String itemTitle, String img, String author)
         {
 
-            Label itemTitleLabel = new Label();
-            itemTitleLabel.Text = "Title: " + itemTitle;
-            itemTitleLabel.FontSize = 24;
-            itemTitleLabel.HorizontalTextAlignment = TextAlignment.Center;
-            Image image = new Image { Source = Img};
+            ItemTitle = new Label();
+            ItemTitle.Text = "Title: " + itemTitle;
+            ItemTitle.FontSize = 20;
+            ItemTitle.HorizontalTextAlignment = TextAlignment.Center;
 
-            image.VerticalOptions = LayoutOptions.Fill;
-            Label authorLabel = new Label();
-            authorLabel.Text = "Author: " + author;
-            authorLabel.FontSize = 18;
-            authorLabel.VerticalOptions = LayoutOptions.Start;
+            Img = new Image { Source = img };
+            Img.VerticalOptions = LayoutOptions.Fill;
+
+            AuthorLabel = new Label();
+            AuthorLabel.Text = "Author: " + author;
+            AuthorLabel.FontSize = 16;
+            AuthorLabel.VerticalOptions = LayoutOptions.Start;
 
             Content = new StackLayout
             {   Spacing = 15,
                 Children = {
-                    image,
-                    itemTitleLabel,
-                    authorLabel
+                    Img,
+                    ItemTitle,
+                    AuthorLabel
                 },
                 Padding = 5,
                 Margin = 5
