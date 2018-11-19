@@ -77,7 +77,7 @@ namespace Sample.Views
                 "Number of Crossposts",
                 "Author",
                 "Score",
-                "Date Created"
+                "Subreddit"
             );
 
             if (sortBy != "Cancel")
@@ -124,13 +124,13 @@ namespace Sample.Views
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
-                    else if (sortBy == "Date Created")
+                    else if (sortBy == "Subreddit")
                     {
-                  //      var sortedItems = Sample.App.NewItems
-                    //                  .OrderBy(x => x.Created)
-                      //                .ToList()
-                        //              ;
-                        //_list.ItemsSource = sortedItems;
+                        var sortedItems = Sample.App.NewItems
+                                      .OrderBy(x => x.subreddit)
+                                      .ToList()
+                                      ;
+                        _list.ItemsSource = sortedItems;
                     }
                 }
                 else if (order == "Descending")
@@ -167,13 +167,13 @@ namespace Sample.Views
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
-                    else if (sortBy == "Date Created")
+                    else if (sortBy == "Subreddit")
                     {
-                   //     var sortedItems = Sample.App.NewItems
-                     //                 .OrderByDescending(x => x.Created)
-                       //               .ToList()
-                         //             ;
-                        //_list.ItemsSource = sortedItems;
+                        var sortedItems = Sample.App.NewItems
+                                      .OrderByDescending(x => x.subreddit)
+                                      .ToList()
+                                      ;
+                        _list.ItemsSource = sortedItems;
                     }
                 }
 
@@ -190,11 +190,17 @@ namespace Sample.Views
         void viewButton_Clicked(object sender, EventArgs e)
         {
             RedditNew currentItem = (RedditNew)_list.SelectedItem;
-            String title = currentItem.Title;
-            String thumb = currentItem.Thumb;
+            String ttl = currentItem.Title;
+            //String thumb = currentItem.Thumb;
             String author = currentItem.Author;
+            String score = System.Convert.ToString(currentItem.Score);
+            String subreddit = currentItem.subreddit;
+            String numCom = System.Convert.ToString(currentItem.comCount);
+            String numCP = System.Convert.ToString(currentItem.crossPosts);
+            String url = currentItem.url;
 
-            ViewPicPage v = new ViewPicPage(title, thumb, author);
+            ViewListingPage v = new ViewListingPage(ttl, author, score, subreddit,
+                                                   numCom, numCP, url);
             Navigation.PushAsync(v);
         }
     }

@@ -191,8 +191,9 @@ namespace Sample.Views
             String title = currentItem.Title;
             String image = currentItem.Img;
             String author = currentItem.Author;
+            String score = System.Convert.ToString(currentItem.Score);
 
-            ViewPicPage v = new ViewPicPage(title, image, author);
+            ViewPicPage v = new ViewPicPage(title, image, author, score);
             Navigation.PushAsync(v);
         }
     }

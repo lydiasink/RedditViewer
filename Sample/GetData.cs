@@ -21,12 +21,14 @@ public class RedditPic
 public class RedditNew
 {
     public string Title { get; set; }
-    public string Thumb { get; set; }
+    //public string Thumb { get; set; }
     public int comCount { get; set; }
     public int crossPosts { get; set; }
     public string Author { get; set; }
     public int Score { get; set; }
     //public DateTime Created { get; set; }
+    public string subreddit { get; set; }
+    public string url { get; set; }
 
 }
 
@@ -67,12 +69,11 @@ public static class GetData
             var numCPs = System.Convert.ToInt32(it_data["num_crossposts"].ToString());
             var author = it_data["author"].ToString();
             var image = it_data["url"].ToString();
-            //var createdUTC = System.Convert.ToDateTime(it_data["created_utc"].ToString());
+            //DateTime createdUTC = System.Convert.ToDateTime(System.Convert.ToInt32(it_data["created_utc"].ToString()));
             //TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
             //DateTime created = TimeZoneInfo.ConvertTimeFromUtc(createdUTC, est);
+            //DateTime createdUTC = DateTimeOffset.Parse(it_data["created_utc"].ToString()).UtcDateTime;
             var score = System.Convert.ToInt32(it_data["score"].ToString());
-
-            //convert the UTC to datetime
 
             // Create an object 
             a.Add(new RedditPic
@@ -84,7 +85,7 @@ public static class GetData
                 Author = author,
                 Score = score,
                 Img = image 
-               //Created = created
+                //Created = created
             });
         }
         return a;
@@ -100,7 +101,7 @@ public static class GetData
             var it_data = it["data"];
             // extract only the data we care about
             var title = it_data["title"].ToString();
-            var thumb = it_data["thumbnail"].ToString();
+            //var thumb = it_data["thumbnail"].ToString();
             var numComs = System.Convert.ToInt32(it_data["num_comments"].ToString());
             var numCPs = System.Convert.ToInt32(it_data["num_crossposts"].ToString());
             var author = it_data["author"].ToString();
@@ -108,16 +109,20 @@ public static class GetData
            // TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
            // DateTime created = TimeZoneInfo.ConvertTimeFromUtc(createdUTC, est);
             var score = System.Convert.ToInt32(it_data["score"].ToString());
+            var sr = it_data["subreddit"].ToString();
+            var urlstr = it_data["url"].ToString();
 
             // Create an object 
             a.Add(new RedditNew
             {
                 Title = title,
-                Thumb = thumb,
+               //Thumb = thumb,
                 comCount = numComs,
                 crossPosts = numCPs,
                 Author = author,
-                Score = score
+                Score = score,
+                subreddit = sr,
+                url = urlstr
                // Created = created
             });
         }
