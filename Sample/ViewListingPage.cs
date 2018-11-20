@@ -29,131 +29,156 @@ namespace Sample.Views
 
 
             //Format Title
-            StackLayout titleinfo = new StackLayout
-            {
-                Spacing = 10,
-                Orientation = StackOrientation.Horizontal,
-                Children =  
-                {    
-                    new Label {
+            FormattedString title =  new FormattedString {
 
+                Spans = {
+                    new Span {
                         Text = "Title: ",
-                        FontSize = 20,
-                        TextColor = Color.FromRgb(216, 79, 0), //orange
                         FontAttributes = FontAttributes.Bold,
-                        LineBreakMode = LineBreakMode.NoWrap,
-                        HorizontalOptions = LayoutOptions.StartAndExpand,
-                        Margin = 3
+                        TextColor = Color.FromRgb(216,79,0),
+                        FontSize = 22
                     },
-                    new Label {
+
+                    new Span {
                         Text = itemTitle,
-                        FontSize = 20,
-                        LineBreakMode = LineBreakMode.TailTruncation
+                        TextColor = Color.FromRgb(0,0,0),
+                        FontSize = 22
                     }
                 }
             };
 
-            //Format Author
-            StackLayout authorinfo = new StackLayout
+            Label titleinfo = new Label
             {
-                Spacing = 0,
-                Orientation = StackOrientation.Horizontal,
-                Children =  {
-                    new Label {
+                FormattedText = title,
+                LineBreakMode = LineBreakMode.WordWrap
+            };
+
+            //Format Author
+            FormattedString auth = new FormattedString
+            {
+
+                Spans = {
+                    new Span {
                         Text = "Author: ",
-                        FontSize = 16,
-                        TextColor = Color.FromRgb(25, 77, 209), //blue
-                        FontAttributes = FontAttributes.Bold
+                        FontAttributes = FontAttributes.Bold,
+                        TextColor = Color.FromRgb(25,77,209),
+                        FontSize = 16
                     },
-                    new Label {
+
+                    new Span {
                         Text = author,
+                        TextColor = Color.FromRgb(0,0,0),
                         FontSize = 16
                     }
                 }
             };
 
-            //Format Score
-            StackLayout scoreinfo = new StackLayout
+            Label authorInfo = new Label
             {
-                Spacing = 0,
-                Orientation = StackOrientation.Horizontal,
-                Children =  {
-                    new Label {
+                FormattedText = auth,
+                LineBreakMode = LineBreakMode.WordWrap
+            };
+
+
+            //Format Score
+            FormattedString scr = new FormattedString
+            {
+                Spans = {
+                    new Span {
                         Text = "Score: ",
-                        FontSize = 16,
-                        TextColor = Color.FromRgb(25, 77, 209), //blue
                         FontAttributes = FontAttributes.Bold,
-                        LineBreakMode = LineBreakMode.NoWrap
+                        TextColor = Color.FromRgb(25,77,209),
+                        FontSize = 16
                     },
-                    new Label {
+
+                    new Span {
                         Text = Score,
-                        FontSize = 16,
-                        LineBreakMode = LineBreakMode.WordWrap
+                        TextColor = Color.FromRgb(0,0,0),
+                        FontSize = 16
                     }
                 }
+            };
+
+            Label scoreInfo = new Label
+            {
+                FormattedText = scr,
+                LineBreakMode = LineBreakMode.WordWrap
             };
 
             //Format Subreddit
-            StackLayout srinfo = new StackLayout
+            FormattedString sr = new FormattedString
             {
-                Spacing = 0,
-                Orientation = StackOrientation.Horizontal,
-                Children =  {
-                    new Label {
+                Spans = {
+                    new Span {
                         Text = "Subreddit: ",
-                        FontSize = 16,
-                        TextColor = Color.FromRgb(25, 77, 209), //blue
                         FontAttributes = FontAttributes.Bold,
-                        LineBreakMode = LineBreakMode.NoWrap
+                        TextColor = Color.FromRgb(25,77,209),
+                        FontSize = 16
                     },
-                    new Label {
+
+                    new Span {
                         Text = subreddit,
-                        FontSize = 16,
-                        LineBreakMode = LineBreakMode.WordWrap
+                        TextColor = Color.FromRgb(0,0,0),
+                        FontSize = 16
                     }
                 }
+            };
+
+            Label srInfo = new Label
+            {
+                FormattedText = sr,
+                LineBreakMode = LineBreakMode.WordWrap
             };
 
             //Format comment count
-            StackLayout numcominfo = new StackLayout
+            FormattedString cc = new FormattedString
             {
-                Spacing = 0,
-                Orientation = StackOrientation.Horizontal,
-                Children =  {
-                    new Label {
+                Spans = {
+                    new Span {
                         Text = "Number of Comments: ",
-                        FontSize = 16,
-                        TextColor = Color.FromRgb(25, 77, 209), //blue
                         FontAttributes = FontAttributes.Bold,
-                        LineBreakMode = LineBreakMode.NoWrap
+                        TextColor = Color.FromRgb(25,77,209),
+                        FontSize = 16
                     },
-                    new Label {
+
+                    new Span {
                         Text = numCom,
-                        FontSize = 16,
-                        LineBreakMode = LineBreakMode.WordWrap
+                        TextColor = Color.FromRgb(0,0,0),
+                        FontSize = 16
                     }
                 }
             };
 
-            //Format crossposts count
-            StackLayout numCPinfo = new StackLayout
+            Label numCominfo = new Label
             {
-                Spacing = 0,
-                Orientation = StackOrientation.Horizontal,
-                Children =  {
-                    new Label {
+                FormattedText = cc,
+                LineBreakMode = LineBreakMode.WordWrap
+            };
+
+            //Format crossposts count
+            FormattedString crossposts = new FormattedString
+            {
+
+                Spans = {
+                    new Span {
                         Text = "Number of Crossposts: ",
-                        FontSize = 16,
-                        TextColor = Color.FromRgb(25, 77, 209), //blue
                         FontAttributes = FontAttributes.Bold,
-                        LineBreakMode = LineBreakMode.NoWrap
+                        TextColor = Color.FromRgb(25,77,209),
+                        FontSize = 16
                     },
-                    new Label {
+
+                    new Span {
                         Text = numCP,
-                        FontSize = 16,
-                        LineBreakMode = LineBreakMode.WordWrap
+                        TextColor = Color.FromRgb(0,0,0),
+                        FontSize = 16
                     }
                 }
+            };
+
+            Label numCPinfo = new Label
+            {
+                FormattedText = crossposts,
+                LineBreakMode = LineBreakMode.WordWrap
             };
 
             Content = new StackLayout
@@ -162,10 +187,10 @@ namespace Sample.Views
                 Children = {
                     urlButton,
                     titleinfo,
-                    authorinfo,
-                    srinfo,
-                    scoreinfo,
-                    numcominfo,
+                    authorInfo,
+                    srInfo,
+                    scoreInfo,
+                    numCominfo,
                     numCPinfo
                 },
                 Padding = 5,
@@ -174,7 +199,6 @@ namespace Sample.Views
 
             //Enable events for the button
             urlButton.Clicked += urlButton_Clicked;
-
         }
 
         void urlButton_Clicked(object sender, EventArgs e) 

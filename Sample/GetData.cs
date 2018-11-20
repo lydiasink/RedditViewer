@@ -15,6 +15,8 @@ public class RedditPic
     public int Score { get; set; }
     public string Img { get; set; } //Large image for specific item view
     //public DateTime Created { get; set; } 
+    public string subreddit { get; set; }
+    public string url { get; set; }
 
 }
 
@@ -74,6 +76,8 @@ public static class GetData
             //DateTime created = TimeZoneInfo.ConvertTimeFromUtc(createdUTC, est);
             //DateTime createdUTC = DateTimeOffset.Parse(it_data["created_utc"].ToString()).UtcDateTime;
             var score = System.Convert.ToInt32(it_data["score"].ToString());
+            var sr = it_data["subreddit"].ToString();
+            var urlstr = it_data["url"].ToString();
 
             // Create an object 
             a.Add(new RedditPic
@@ -84,8 +88,10 @@ public static class GetData
                 crossPosts = numCPs,
                 Author = author,
                 Score = score,
-                Img = image 
+                Img = image,
                 //Created = created
+                subreddit = sr,
+                url = urlstr
             });
         }
         return a;

@@ -192,8 +192,13 @@ namespace Sample.Views
             String image = currentItem.Img;
             String author = currentItem.Author;
             String score = System.Convert.ToString(currentItem.Score);
+            String subreddit = currentItem.subreddit;
+            String numCom = System.Convert.ToString(currentItem.comCount);
+            String numCP = System.Convert.ToString(currentItem.crossPosts);
+            String url = currentItem.url;
 
-            ViewPicPage v = new ViewPicPage(title, image, author, score);
+            ViewPicPage v = new ViewPicPage(title, image, author, score, subreddit,
+                                           numCom, numCP, url);
             Navigation.PushAsync(v);
         }
     }
