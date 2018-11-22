@@ -77,7 +77,8 @@ namespace Sample.Views
                 "Number of Crossposts",
                 "Author",
                 "Score",
-                "Subreddit"
+                "Subreddit",
+                "Date Created"
             );
 
             if (sortBy != "Cancel")
@@ -132,6 +133,13 @@ namespace Sample.Views
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
+                    else if (sortBy == "Date Created")
+                    {
+                        var sortedItems = Sample.App.NewItems
+                                      .OrderBy(x => x.Created)
+                                      .ToList()
+                                      ;
+                    }
                 }
                 else if (order == "Descending")
                 {
@@ -175,6 +183,12 @@ namespace Sample.Views
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
+                    else if (sortBy == "Date Created"){
+                        var sortedItems = Sample.App.NewItems
+                                      .OrderByDescending(x => x.Created)
+                                      .ToList()
+                                      ;
+                    }
                 }
 
             };
@@ -194,13 +208,14 @@ namespace Sample.Views
             //String thumb = currentItem.Thumb;
             String author = currentItem.Author;
             String score = System.Convert.ToString(currentItem.Score);
+            String created = System.Convert.ToString(currentItem.Created);
             String subreddit = currentItem.subreddit;
             String numCom = System.Convert.ToString(currentItem.comCount);
             String numCP = System.Convert.ToString(currentItem.crossPosts);
             String url = currentItem.url;
 
-            ViewListingPage v = new ViewListingPage(ttl, author, score, subreddit,
-                                                   numCom, numCP, url);
+            ViewListingPage v = new ViewListingPage(ttl, author, score, created,
+                                                   subreddit, numCom, numCP, url);
             Navigation.PushAsync(v);
         }
     }

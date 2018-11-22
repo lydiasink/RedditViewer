@@ -7,14 +7,76 @@ namespace Sample.Views
     {
 
         public ViewPicPage(String itemTitle, String img, String author, 
-                           String Score, String subreddit, String numCom,
-                          String numCP, String url)
+                           String Score, String created_date, String subreddit,
+                           String numCom, String numCP, String urlstr)
         {
+            ////////INITIALIZE THE ELEMENTS
 
+            //Format created date
+            FormattedString created = new FormattedString
+            {
+                Spans = {
+                    new Span {
+                        Text = "Created: ",
+                        FontAttributes = FontAttributes.Bold,
+                        TextColor = Color.FromRgb(216,79,0),
+                        FontSize = 16
+                    },
+
+                    new Span {
+                        Text = created_date,
+                        TextColor = Color.FromRgb(0,0,0),
+                        FontSize = 16
+                    }
+                }
+            };
+
+            Label createdinfo = new Label
+            {
+                FormattedText = created,
+                LineBreakMode = LineBreakMode.WordWrap,
+                HorizontalOptions = LayoutOptions.StartAndExpand,
+                VerticalOptions = LayoutOptions.Start,
+                //BackgroundColor = Color.FromRgb(255,255,255),
+                TextColor = Color.FromRgb(200,200,200),
+                FontSize = 16,
+                FontAttributes = FontAttributes.Italic
+            };
+
+
+            //Create a button with link to open in browser
+            String url = urlstr;
+
+            Button urlButton = new Button
+            {
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Start,
+                Text = " View in Browser ",
+                TextColor = Color.FromRgb(255, 255, 255),
+                BackgroundColor = Color.FromRgb(90, 79, 135),
+                BorderColor = Color.FromRgb(0, 0, 50),
+                //Margin = 5,
+                WidthRequest = 125,
+                FontSize = 16, 
+            };
+
+            //Put the button and created date on the same line
+            StackLayout header = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal,
+                Children = {
+                    createdinfo,
+                    urlButton
+                }
+                //BackgroundColor = Color.FromRgb(50,50,50)
+            };
+
+            //Set image string to image object
             Image image = new Image
             {
                 Source = img
             };
+
 
             //Format Title
             FormattedString title = new FormattedString
@@ -169,11 +231,17 @@ namespace Sample.Views
                 LineBreakMode = LineBreakMode.WordWrap
             };
 
-            Content = new StackLayout
+            //////INITIALIZE STRUCTURE AND STORE THE ELEMENTS
+
+            var scroll = new ScrollView();
+            Content = scroll;
+
+            var elements = new StackLayout
             {
-                Spacing = 15,
                 Children = {
                     //urlButton,
+                    //createdLabel,
+                    header,
                     image,
                     titleinfo,
                     authorInfo,
@@ -185,6 +253,8 @@ namespace Sample.Views
                 Padding = 5,
                 Margin = 5
             };
+
+            scroll.Content = elements;
         }
     }
 }

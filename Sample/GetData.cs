@@ -14,7 +14,7 @@ public class RedditPic
     public string Author { get; set; }
     public int Score { get; set; }
     public string Img { get; set; } //Large image for specific item view
-    //public DateTime Created { get; set; } 
+    public DateTime Created { get; set; } 
     public string subreddit { get; set; }
     public string url { get; set; }
 
@@ -28,7 +28,7 @@ public class RedditNew
     public int crossPosts { get; set; }
     public string Author { get; set; }
     public int Score { get; set; }
-    //public DateTime Created { get; set; }
+    public DateTime Created { get; set; }
     public string subreddit { get; set; }
     public string url { get; set; }
 
@@ -71,11 +71,10 @@ public static class GetData
             var numCPs = System.Convert.ToInt32(it_data["num_crossposts"].ToString());
             var author = it_data["author"].ToString();
             var image = it_data["url"].ToString();
-            //DateTime createdUTC = System.Convert.ToDateTime(System.Convert.ToInt32(it_data["created_utc"].ToString()));
-            //TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-            //DateTime created = TimeZoneInfo.ConvertTimeFromUtc(createdUTC, est);
-            //DateTime createdUTC = DateTimeOffset.Parse(it_data["created_utc"].ToString()).UtcDateTime;
             var score = System.Convert.ToInt32(it_data["score"].ToString());
+            int seconds = System.Convert.ToInt32(it_data["created_utc"].ToString());
+            DateTime since1970 = new DateTime(1970, 1, 1, 0, 0, 0);
+            DateTime created = since1970.AddSeconds(seconds);
             var sr = it_data["subreddit"].ToString();
             var urlstr = it_data["url"].ToString();
 
@@ -89,7 +88,7 @@ public static class GetData
                 Author = author,
                 Score = score,
                 Img = image,
-                //Created = created
+                Created = created,
                 subreddit = sr,
                 url = urlstr
             });
@@ -111,9 +110,9 @@ public static class GetData
             var numComs = System.Convert.ToInt32(it_data["num_comments"].ToString());
             var numCPs = System.Convert.ToInt32(it_data["num_crossposts"].ToString());
             var author = it_data["author"].ToString();
-            //var createdUTC = System.Convert.ToDateTime(it_data["created_utc"].ToString());
-           // TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-           // DateTime created = TimeZoneInfo.ConvertTimeFromUtc(createdUTC, est);
+            int seconds = System.Convert.ToInt32(it_data["created_utc"].ToString());
+            DateTime since1970 = new DateTime(1970, 1, 1, 0, 0, 0);
+            DateTime created = since1970.AddSeconds(seconds);
             var score = System.Convert.ToInt32(it_data["score"].ToString());
             var sr = it_data["subreddit"].ToString();
             var urlstr = it_data["url"].ToString();
@@ -127,9 +126,9 @@ public static class GetData
                 crossPosts = numCPs,
                 Author = author,
                 Score = score,
+                Created = created,
                 subreddit = sr,
                 url = urlstr
-               // Created = created
             });
         }
         return a;
