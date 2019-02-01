@@ -139,6 +139,7 @@ namespace Sample.Views
                                       .OrderBy(x => x.Created)
                                       .ToList()
                                       ;
+                        _list.ItemsSource = sortedItems;
                     }
                 }
                 else if (order == "Descending")
@@ -188,6 +189,7 @@ namespace Sample.Views
                                       .OrderByDescending(x => x.Created)
                                       .ToList()
                                       ;
+                        _list.ItemsSource = sortedItems;
                     }
                 }
 
