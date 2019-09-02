@@ -20,7 +20,7 @@ namespace Sample.Views
                 VerticalOptions = LayoutOptions.Start,
                 TextColor = Color.FromRgb(50, 50, 50),
                 FontSize = 18,
-                BackgroundColor = Color.FromRgb(200,200,200)
+                BackgroundColor = Color.FromRgb(200, 200, 200)
             };
 
 
@@ -52,7 +52,8 @@ namespace Sample.Views
                 TextColor = Color.FromRgb(255, 255, 255),
                 BackgroundColor = Color.FromRgb(100, 118, 219),
                 BorderColor = Color.FromRgb(0, 0, 100),
-                FontSize = 20
+                FontSize = 20,
+
             };
 
             Button subreddits_button = new Button
@@ -94,7 +95,24 @@ namespace Sample.Views
 
             scroll.Content = elements;
 
+            //enable events
+            new_button.Clicked += New_Button_Clicked;
+            pictures_button.Clicked += Pictures_Button_Clicked;
+        }
 
+        void Pictures_Button_Clicked(object sender, EventArgs e)
+        {
+            Pictures page = new Pictures();
+
+            Navigation.PushAsync(page);
+        }
+
+        void New_Button_Clicked(object sender, EventArgs e)
+        {
+            New page = new New();
+
+            Navigation.PushAsync(page);
         }
     }
+
 }
