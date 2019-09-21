@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Sample.Models;
 using Sample.Views;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -12,12 +13,17 @@ namespace Sample
     public partial class App : Application
     {
         public static List<RedditPic> Pics;
-        public static List<RedditNew> NewItems;
+        public static Dictionary<string, List<Listing>> Items;
 
         async Task InitData()
         {
             Pics = await GetData.GetPics(); //Getting the data from the website
-            NewItems = await GetData.GetNew();
+            Items = new Dictionary<string, List<Listing>>();
+            Items.Add("new", await GetData.GetItems("new"));
+            Items.Add("hot", await GetData.GetItems("hot"));
+            //Items.Add("random", await GetData.GetItems("random"));
+            Items.Add("controversial", await GetData.GetItems("controversial"));
+            Items.Add("rising", await GetData.GetItems("rising"));
         }
 
         public App()
@@ -45,3 +51,4 @@ namespace Sample
         }
     }
 }
+

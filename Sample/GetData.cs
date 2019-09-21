@@ -4,35 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
-public class RedditPic
-{
-    public string Title { get; set; }
-    public string Thumb { get; set; } //Small image for view in list
-    public int comCount { get; set; }
-    public int crossPosts { get; set; }
-    public string Author { get; set; }
-    public int Score { get; set; }
-    public string Img { get; set; } //Large image for specific item view
-    public DateTime Created { get; set; } 
-    public string subreddit { get; set; }
-    public string url { get; set; }
-
-}
-
-public class RedditNew
-{
-    public string Title { get; set; }
-    //public string Thumb { get; set; }
-    public int comCount { get; set; }
-    public int crossPosts { get; set; }
-    public string Author { get; set; }
-    public int Score { get; set; }
-    public DateTime Created { get; set; }
-    public string subreddit { get; set; }
-    public string url { get; set; }
-
-}
+using Sample.Models;
 
 public static class GetData
 {
@@ -43,10 +15,12 @@ public static class GetData
         return json;
     }
 
-    static async System.Threading.Tasks.Task<string> GetJsonNew()
+    static async System.Threading.Tasks.Task<string> GetJson(String type)
     {
         var http = new HttpClient();
-        var json = await http.GetStringAsync("https://www.reddit.com/new.json?limit=50");
+        string stem = "https://www.reddit.com/";
+        var job = stem + type + ".json?limit=50";
+        string json = await http.GetStringAsync(job);     
         return json;
     }
 
@@ -96,17 +70,16 @@ public static class GetData
         return a;
     }
 
-    static List<RedditNew> ConvertNew(JObject job)
+    static List<Listing> ConvertItem(JObject job)
     {
-        var a = new List<RedditNew>();
+        var a = new List<Listing>();
         var data = job["data"];
         var children = data["children"];
         foreach (var it in children.Children())
         {
             var it_data = it["data"];
             // extract only the data we care about
-            var title = it_data["title"].ToString();
-            //var thumb = it_data["thumbnail"].ToString();
+            var ttl = it_data["title"].ToString();
             var numComs = System.Convert.ToInt32(it_data["num_comments"].ToString());
             var numCPs = System.Convert.ToInt32(it_data["num_crossposts"].ToString());
             var author = it_data["author"].ToString();
@@ -118,36 +91,24 @@ public static class GetData
             var urlstr = it_data["url"].ToString();
 
             // Create an object 
-            a.Add(new RedditNew
-            {
-                Title = title,
-               //Thumb = thumb,
-                comCount = numComs,
-                crossPosts = numCPs,
-                Author = author,
-                Score = score,
-                Created = created,
-                subreddit = sr,
-                url = urlstr
-            });
+            a.Add(new Listing(ttl, numComs, numCPs, author, score, created, sr, urlstr));
         }
         return a;
     }
 
     public static async Task<List<RedditPic>> GetPics()
     {
-        var json = await GetJsonPics();
+        string json = await GetJsonPics();
         var job = ParseJson(json);
         var result = ConvertPics(job);
         return result;
     }
 
-    public static async Task<List<RedditNew>> GetNew()
+    public static async Task<List<Listing>> GetItems(String type)
     {
-        var json = await GetJsonNew();
+        string json = await GetJson(type);
         var job = ParseJson(json);
-        var result = ConvertNew(job);
+        var result = ConvertItem(job);
         return result;
     }
-
 }

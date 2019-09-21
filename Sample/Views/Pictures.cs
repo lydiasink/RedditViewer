@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using Sample.Models;
 
 namespace Sample.Views
 {

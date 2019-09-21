@@ -13,17 +13,6 @@
             </x:Arguments>
         </NavigationPage>
         
-        <NavigationPage Title="New">
-            <NavigationPage.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS" Value="tab_feed.png" />
-                </OnPlatform>
-            </NavigationPage.Icon>
-            <x:Arguments>
-                <views:New />
-            </x:Arguments>
-        </NavigationPage>
-        
         <NavigationPage Title="Pictures">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">

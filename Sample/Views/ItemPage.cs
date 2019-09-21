@@ -2,21 +2,27 @@
 using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using Sample.Models;
 
 namespace Sample.Views
 {
-    public class New : ContentPage
+    public class ItemPage : ContentPage
     {
         public ListView _list;
         public Button viewButton = new Button();
         public Button sortButton = new Button();
         public Label title = new Label();
+        public List<Listing> theItems;
 
-        public New()
+        public ItemPage(String title, String type)
         {
-            Title = "What's New";
+            Title = title;
+            theItems = Sample.App.Items[type];
+            int size = theItems.Count;
 
-            //Format sort button
+            System.Console.WriteLine("size of " + type + " " + size);
+
+            //Format sort buttons
             sortButton.Text = " Sort by... ";
             sortButton.BackgroundColor = Color.FromHex("50D859");
             sortButton.TextColor = Color.FromRgb(255, 255, 255);
@@ -37,20 +43,26 @@ namespace Sample.Views
 
             //initialize list of content
             _list = new ListView();
-            _list.ItemsSource = Sample.App.NewItems;
+            _list.ItemsSource = theItems;
             _list.ItemTemplate = new DataTemplate(() =>
             {
                 var cell = new ImageCell();
-                cell.SetBinding(ImageCell.TextProperty, "Title");
-                cell.SetBinding(ImageCell.ImageSourceProperty, "Thumb");
+                cell.SetBinding(ImageCell.TextProperty, "_title");
+                cell.SetBinding(ImageCell.ImageSourceProperty, "_thumb");
+                cell.TextColor = Color.FromRgb(0, 0, 0);
+                
                 return cell;
             });
 
+            _list.IsVisible = true;
+
+        
             //Enable events 
             _list.ItemSelected += _list_ItemSelected;
             sortButton.Clicked += sortButton_Clicked;
             viewButton.Clicked += viewButton_Clicked;
 
+            //Populate the screen with a stacklayout
             Content = new StackLayout
             {
                 Children = {
@@ -95,48 +107,48 @@ namespace Sample.Views
 
                     if (sortBy == "Number of Comments")
                     {
-                        var sortedItems = Sample.App.NewItems
-                                      .OrderBy(x => x.comCount)
+                        var sortedItems = theItems
+                                      .OrderBy(x => x.getComCount())
                                       .ToList()
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
                     else if (sortBy == "Number of Crossposts")
                     {
-                        var sortedItems = Sample.App.NewItems
-                                      .OrderBy(x => x.crossPosts)
+                        var sortedItems = theItems
+                                      .OrderBy(x => x.getCrossposts())
                                       .ToList()
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
                     else if (sortBy == "Author")
                     {
-                        var sortedItems = Sample.App.NewItems
-                                      .OrderBy(x => x.Author)
+                        var sortedItems = theItems
+                                      .OrderBy(x => x.getAuthor())
                                       .ToList()
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
                     else if (sortBy == "Score")
                     {
-                        var sortedItems = Sample.App.NewItems
-                                      .OrderBy(x => x.Score)
+                        var sortedItems = theItems
+                                      .OrderBy(x => x.getScore())
                                       .ToList()
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
                     else if (sortBy == "Subreddit")
                     {
-                        var sortedItems = Sample.App.NewItems
-                                      .OrderBy(x => x.subreddit)
+                        var sortedItems = theItems
+                                      .OrderBy(x => x.getSubReddit())
                                       .ToList()
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
                     else if (sortBy == "Date Created")
                     {
-                        var sortedItems = Sample.App.NewItems
-                                      .OrderBy(x => x.Created)
+                        var sortedItems = theItems
+                                      .OrderBy(x => x.getDate())
                                       .ToList()
                                       ;
                         _list.ItemsSource = sortedItems;
@@ -146,47 +158,48 @@ namespace Sample.Views
                 {
                     if (sortBy == "Number of Comments")
                     {
-                        var sortedItems = Sample.App.NewItems
-                                      .OrderByDescending(x => x.comCount)
+                        var sortedItems = theItems
+                                      .OrderByDescending(x => x.getComCount())
                                       .ToList()
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
                     else if (sortBy == "Number of Crossposts")
                     {
-                        var sortedItems = Sample.App.NewItems
-                                      .OrderByDescending(x => x.crossPosts)
+                        var sortedItems = theItems
+                                      .OrderByDescending(x => x.getCrossposts())
                                       .ToList()
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
                     else if (sortBy == "Author")
                     {
-                        var sortedItems = Sample.App.NewItems
-                                      .OrderByDescending(x => x.Author)
+                        var sortedItems = theItems
+                                                .OrderByDescending(x => x.getAuthor())
                                       .ToList()
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
                     else if (sortBy == "Score")
                     {
-                        var sortedItems = Sample.App.NewItems
-                                      .OrderByDescending(x => x.Score)
+                        var sortedItems = theItems
+                                      .OrderByDescending(x => x.getScore())
                                       .ToList()
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
                     else if (sortBy == "Subreddit")
                     {
-                        var sortedItems = Sample.App.NewItems
-                                      .OrderByDescending(x => x.subreddit)
+                        var sortedItems = theItems
+                                                .OrderByDescending(x => x.getSubReddit())
                                       .ToList()
                                       ;
                         _list.ItemsSource = sortedItems;
                     }
-                    else if (sortBy == "Date Created"){
-                        var sortedItems = Sample.App.NewItems
-                                      .OrderByDescending(x => x.Created)
+                    else if (sortBy == "Date Created")
+                    {
+                        var sortedItems = theItems
+                                      .OrderByDescending(x => x.getDate())
                                       .ToList()
                                       ;
                         _list.ItemsSource = sortedItems;
@@ -205,16 +218,16 @@ namespace Sample.Views
         //View the item
         void viewButton_Clicked(object sender, EventArgs e)
         {
-            RedditNew currentItem = (RedditNew)_list.SelectedItem;
-            String ttl = currentItem.Title;
+            Listing currentItem = (Listing)_list.SelectedItem;
+            String ttl = currentItem.getTitle();
             //String thumb = currentItem.Thumb;
-            String author = currentItem.Author;
-            String score = System.Convert.ToString(currentItem.Score);
-            String created = System.Convert.ToString(currentItem.Created);
-            String subreddit = currentItem.subreddit;
-            String numCom = System.Convert.ToString(currentItem.comCount);
-            String numCP = System.Convert.ToString(currentItem.crossPosts);
-            String url = currentItem.url;
+            String author = currentItem.getAuthor();
+            String score = System.Convert.ToString(currentItem.getScore());
+            String created = System.Convert.ToString(currentItem.getDate());
+            String subreddit = currentItem.getSubReddit();
+            String numCom = System.Convert.ToString(currentItem.getComCount());
+            String numCP = System.Convert.ToString(currentItem.getCrossposts());
+            String url = currentItem.getURL();
 
             ViewListingPage v = new ViewListingPage(ttl, author, score, created,
                                                    subreddit, numCom, numCP, url);

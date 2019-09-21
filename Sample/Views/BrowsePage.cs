@@ -25,12 +25,11 @@ namespace Sample.Views
 
 
             // Set buttons to represent categories
-
             Button popular_button = new Button
             {
                 Text = "Popular ",
                 TextColor = Color.FromRgb(255, 255, 255),
-                BackgroundColor = Color.FromRgb(90, 79, 135),
+                BackgroundColor = Color.FromRgb(25, 79, 200),
                 BorderColor = Color.FromRgb(0, 0, 50),
                 FontSize = 20
 
@@ -46,28 +45,29 @@ namespace Sample.Views
 
             };
 
-            Button oc_button = new Button
+            Button rising_button = new Button
             {
-                Text = " Original Content ",
+                Text = " Rising ",
                 TextColor = Color.FromRgb(255, 255, 255),
-                BackgroundColor = Color.FromRgb(100, 118, 219),
+                BackgroundColor = Color.FromRgb(200, 25, 100),
                 BorderColor = Color.FromRgb(0, 0, 100),
                 FontSize = 20,
 
             };
 
-            Button subreddits_button = new Button
+            /*
+            Button random_button = new Button
             {
-                Text = " Subreddits ",
+                Text = " Random ",
                 TextColor = Color.FromRgb(255, 255, 255),
                 BackgroundColor = Color.FromRgb(100, 118, 219),
                 BorderColor = Color.FromRgb(0, 0, 100),
                 FontSize = 20
-            };
+            }; */
 
-            Button pictures_button = new Button
+            Button contro_button = new Button
             {
-                Text = " Pictures ",
+                Text = " Controversial ",
                 TextColor = Color.FromRgb(255, 255, 255),
                 BackgroundColor = Color.FromRgb(100, 118, 219),
                 BorderColor = Color.FromRgb(0, 0, 100),
@@ -85,9 +85,9 @@ namespace Sample.Views
                     select_label,
                     popular_button,
                     new_button,
-                    oc_button,
-                    subreddits_button,
-                    pictures_button
+                    //random_button,
+                    contro_button,
+                    rising_button
                 },
                 Padding = 5,
                 Margin = 5
@@ -97,22 +97,47 @@ namespace Sample.Views
 
             //enable events
             new_button.Clicked += New_Button_Clicked;
-            pictures_button.Clicked += Pictures_Button_Clicked;
+            //random_button.Clicked += Random_Button_Clicked;
+            popular_button.Clicked += Popular_Button_Clicked;
+            rising_button.Clicked += Rising_Button_Clicked;
+            contro_button.Clicked += Contro_Button_Clicked;
         }
 
-        void Pictures_Button_Clicked(object sender, EventArgs e)
+        void Rising_Button_Clicked(object sender, EventArgs e)
         {
-            Pictures page = new Pictures();
+            ItemPage page = new ItemPage("Rising", "rising");
 
             Navigation.PushAsync(page);
         }
 
         void New_Button_Clicked(object sender, EventArgs e)
         {
-            New page = new New();
+            ItemPage page = new ItemPage(Title = "What's New", "new");
 
             Navigation.PushAsync(page);
         }
+
+        void Popular_Button_Clicked(object sender, EventArgs e)
+        {
+            ItemPage page = new ItemPage(Title = "Popular", "hot");
+
+            Navigation.PushAsync(page);
+        }
+
+        void Contro_Button_Clicked(object sender, EventArgs e)
+        {
+            ItemPage page = new ItemPage(Title = "Controversial", "controversial");
+
+            Navigation.PushAsync(page);
+        }
+
+        /*
+        void Random_Button_Clicked(object sender, EventArgs e)
+        {
+            ItemPage page = new ItemPage(Title = "Random", "random");
+
+            Navigation.PushAsync(page);
+        } */
     }
 
 }
